@@ -3,7 +3,7 @@ class Student:
         self.name="Not Entered"
         self.id="Not Entered"
         self.l=[]
-        self.avg=0.0
+        self.avgerage=0.0
     def details(self):
         self.name=input("enter the name : ")
         self.id=input("enter the id : ")
@@ -35,24 +35,53 @@ class Student:
     def __str__(self):
         return (f"student name:{self.name} student ID:{self.id} ")
 
-ob=Student()
+students = []          # list of Student objects
+current = None         # the student currently being worked on
 
 while True:
-    print("menue:")
-    print("1.student name\n2.enter marks\n3.your dteails 4.exit")
-    op=int(input("enetr the option:"))
-    match(op):
+    print("menu:")
+    print("1.add new student\n2.enter marks\n3.student details\n4.list all students\n5.highest scorer\n6.exit")
+    op = int(input("enter the option: "))
+    match op:
         case 1:
-            ob.details()
+            current = Student()
+            current.details()
+            students.append(current)
+            print("student added successfully!")
+
         case 2:
-            n=int(input("enter how many subjects the student is studying: "))
-            ob.marks(n)
+            if current is None:
+                print("please add a student first (option 1)")
+            else:
+                n = int(input("enter how many subjects the student is studying: "))
+                current.marks(n)
+
         case 3:
-            ob.print_details()
-            ob.avg()
-            ob.is_passing()
+            if current is None:
+                print("no student selected yet")
+            else:
+                current.print_details()
+                current.avg()
+                current.is_passing()
+
         case 4:
+            if not students:
+                print("no students added yet")
+            else:
+                print("----- all students -----")
+                for s in students:
+                    print(s)   # uses __str__
+
+        case 5:
+            if not students:
+                print("no students added yet")
+            else:
+                topper = max(students, key=lambda s: s.average)
+                print(f"highest scorer: {topper.name} (ID: {topper.id}) with average {topper.average}")
+
+        case 6:
             print("......you are exiting.......")
             break
+
         case _:
             print("please select valid option")
