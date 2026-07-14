@@ -42,17 +42,17 @@ class Book:
         return f"Book title:{self.title}, Book authour:{self.author}, Book price:{self.price}, Book pages:{self.pages}"
     
 
-book=[]
+books=[]
 current=None
 while True:
     print(".............menue...............\n")
-    print("1.enter details\n2.see details\n3.issue book\n4.return book\n5.see all books\n6.exit\n")
+    print("1.enter details\n2.see details\n3.issue book\n4.return book\n5.see all books\n6.select Book\n7.exit\n")
     op=int(input("enter the option from above menue: "))
     match (op):
         case 1:
             current=Book()
             current.details()
-            book.append(current)
+            books.append(current)
             print("Details added successfully")
         case 2:
             if current is None:
@@ -72,13 +72,22 @@ while True:
             else:
                 current.ret()
         case 5:
-            if not book:
+            if not books:
                 print("please enter book details")
             else:
                 print("---------ALL BOOKS----------")
-                for i in book:
+                for i in books:
                     print(f"{i}\n")
         case 6:
+            for i,book in enumerate(books,start=1):
+                print(f"{i}. {book}")
+            s=int(input("select book you want to modify:"))
+            if 0<s<=len(books):
+                current=books[s-1]
+            else:
+                print("enter valid book number")
+        
+        case 7:
             print("........YOU ARE EXITING..........")
             break
         case _:
