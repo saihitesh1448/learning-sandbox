@@ -3,13 +3,13 @@ class Student:
         self.name="Not Entered"
         self.id="Not Entered"
         self.l=[]
-        self.avgerage=0.0
+        self.average=0.0
     def details(self):
         self.name=input("enter the name : ")
         self.id=input("enter the id : ")
     def print_details(self):
         print(f"Student name: {self.name}    student ID: {self.id}")
-    def marks(self,n):
+    def __marks(self,n):
         self.l=[]
         print("please enter the student marks")
         for i in range(n):
@@ -21,26 +21,27 @@ class Student:
                 else:
                     print("Invalid marks! Please enter a value between 0 and 100.")
         print(f"your marks{self.l}")
-    def avg(self):
         if len(self.l)==0:
-            print("No marks have been entered yet. Average score is: 0.0")
+            print(f"No marks have been entered yet. Average score is: {self.average}")
             return
-        self.avg=sum(self.l)/len(self.l)
-        print(f"your average score is: {self.avg}")
+        self.average=float(sum(self.l)/len(self.l))
+        print(f"your average score is: {self.average}")
+    def calculate_marks(self,n):
+        self.__marks(n)
     def is_passing(self):
-        if self.avg>=40:
+        if self.average>=40:
             print("you passed")
         else:
             print("you failed")
     def __str__(self):
-        return (f"student name:{self.name} student ID:{self.id} ")
+        return (f"student name:{self.name} student ID:{self.id} student Average: {self.average:.2f}")
 
 students = []          # list of Student objects
 current = None         # the student currently being worked on
 
 while True:
     print("menu:")
-    print("1.add new student\n2.enter marks\n3.student details\n4.list all students\n5.highest scorer\n6.exit")
+    print("1.add new student\n2.enter marks\n3.student details\n4.list all students\n5.highest scorer\n6.select student\n7.exit")
     op = int(input("enter the option: "))
     match op:
         case 1:
@@ -54,14 +55,14 @@ while True:
                 print("please add a student first (option 1)")
             else:
                 n = int(input("enter how many subjects the student is studying: "))
-                current.marks(n)
+                current.calculate_marks(n)
 
         case 3:
             if current is None:
                 print("no student selected yet")
             else:
                 current.print_details()
-                current.avg()
+                print(f"Average: {current.average:.2f}")
                 current.is_passing()
 
         case 4:
@@ -80,8 +81,19 @@ while True:
                 print(f"highest scorer: {topper.name} (ID: {topper.id}) with average {topper.average}")
 
         case 6:
+            if not students:
+                print("the list is empty")
+            else:
+                for i, s in enumerate(students, start=1):
+                    print(f"{i}. {s.name}")
+                choice = int(input("Select student: "))
+                if 1 <= choice <= len(students):
+                    current = students[choice - 1]
+                    print(f"{current.name} selected.")
+                else:
+                    print("Invalid student number.")
+        case 7:
             print("......you are exiting.......")
             break
-
         case _:
             print("please select valid option")
