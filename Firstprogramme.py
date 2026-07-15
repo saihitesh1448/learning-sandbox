@@ -1,33 +1,47 @@
-class Student:
+from abc import ABC,abstractmethod
+class Person(ABC):
+    @abstractmethod
+    def display_details(self):
+        pass
+class Student(Person):
     def __init__(self):
-        self.name="Not Entered"
+        self.__name="Not Entered"
         self.id="Not Entered"
-        self.l=[]
+        self._l=[]
         self.average=0.0
+    @property
+    def name(self):
+        return self.__name
+    @name.setter
+    def name(self,n):
+        if not n or not n.strip():
+            raise ValueError("Name cannot be empty.")
+        self.__name = n
     def details(self):
-        self.name=input("enter the name : ")
+        self.name=input("enter the name: ")
         self.id=input("enter the id : ")
-    def print_details(self):
+
+    def display_details(self):
         print(f"Student name: {self.name}    student ID: {self.id}")
-    def __marks(self,n):
-        self.l=[]
+
+    def calculate_marks(self, n):
+        self.__marks = []
         print("please enter the student marks")
         for i in range(n):
             while True:
-                temp=int(input(f"enter subject {i+1} marks : "))
-                if 0<=temp<=100:
-                    self.l.append(temp)
+                temp = int(input(f"enter subject {i+1} marks : "))
+                if 0 <= temp <= 100:
+                    self.__marks.append(temp)
                     break
                 else:
                     print("Invalid marks! Please enter a value between 0 and 100.")
-        print(f"your marks{self.l}")
-        if len(self.l)==0:
+        print(f"your marks{self.__marks}")
+        if len(self.__marks) == 0:
             print(f"No marks have been entered yet. Average score is: {self.average}")
             return
-        self.average=float(sum(self.l)/len(self.l))
+        self.average = float(sum(self.__marks) / len(self.__marks))
         print(f"your average score is: {self.average}")
-    def calculate_marks(self,n):
-        self.__marks(n)
+    
     def is_passing(self):
         if self.average>=40:
             print("you passed")
@@ -61,7 +75,7 @@ while True:
             if current is None:
                 print("no student selected yet")
             else:
-                current.print_details()
+                current.display_details()
                 print(f"Average: {current.average:.2f}")
                 current.is_passing()
 
