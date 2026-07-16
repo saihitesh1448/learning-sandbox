@@ -85,7 +85,7 @@ while True:
             else:
                 print("----- all students -----")
                 for s in students:
-                    print(s)   # uses __str__
+                    print(s)   
 
         case 5:
             if not students:
