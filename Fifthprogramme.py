@@ -122,7 +122,7 @@ class Zoo:
         for i in self.animals:
             print(i.display())
             i.sound()
-            print("-" * 76)
+            print("--------------------------------------------------------------------------------------------")
 
 
 zoo = Zoo()
