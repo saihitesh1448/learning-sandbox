@@ -14,7 +14,3 @@ This repository serves as a learning journal where I document my programming jou
 - **Reference Material**: Serves as a personal reference for concepts I've learned
  
 
- 
-## Note
- 
-New programs are added regularly as I continue learning. The specific files and their names may change as the repository evolves with my learning journey.
