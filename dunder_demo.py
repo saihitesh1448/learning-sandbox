@@ -1,3 +1,4 @@
+from staticmethod import BillUtils
 class Bill:
     def __init__(self,person,money):
         self.person=person
@@ -32,7 +33,10 @@ class BillSplitter:
     def __init__(self):
         self.peoples=[]
     def add_people(self,person, money_paid):
-        self.peoples.append(Bill(person, money_paid))
+        if BillUtils.is_valid(money_paid):
+            self.peoples.append(Bill(person, money_paid))
+        else:
+            raise ValueError("invalid money")
     def show_all(self):
         for i in self.peoples:
             print(i)
@@ -42,8 +46,11 @@ class BillSplitter:
         for i in self.peoples:
             total+=i.money
         return total
+    def splitter(self):
+        indi = BillUtils.split_bill(self.total_bill, len(self.peoples))   # call the property itself
+        return f"every one should pay {indi}"
 
-
+BillUtils.is_valid(2000)
 splitter = BillSplitter()
 splitter.add_people("sai", 200)
 splitter.add_people("rahul", 500)
