@@ -49,15 +49,34 @@ class BillSplitter:
     def splitter(self):
         indi = BillUtils.split_bill(self.total_bill, len(self.peoples))   # call the property itself
         return f"every one should pay {indi}"
+    def __len__(self):
+        return len(self.peoples)
+    def __contains__(self, name):
+        for i in self.peoples:
+            if i.person==name:
+                return True
+        else:
+            return False
+    @classmethod
+    def create_sample(cls):
+        ob=cls()
+        ob.add_people("rahul",100)
+        ob.add_people("priya",800)
+        ob.add_people("krithi",1000)
+        return ob
 
-BillUtils.is_valid(2000)
 splitter = BillSplitter()
 splitter.add_people("sai", 200)
 splitter.add_people("rahul", 500)
 
-print(splitter.total_bill)     
-try:
-    splitter.total_bill = 1000
-except AttributeError as e:
-    print("Caught:", e)
+print("Manual splitter:")
+print("Total bill:", splitter.total_bill)
+print("Number of people:", len(splitter))
+print("Is 'sai' in splitter?", "sai" in splitter)
+
+print("\nSample splitter (created via @classmethod):")
+sample = BillSplitter.create_sample()
+print("Total bill:", sample.total_bill)
+print("Number of people:", len(sample))
+print("Per-person share:", sample.splitter())
     
