@@ -1,4 +1,4 @@
-from staticmethod import BillUtils
+from staticmethod_demo import BillUtils
 class Bill:
     def __init__(self,person,money):
         self.person=person
