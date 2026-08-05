@@ -1,4 +1,3 @@
-#ecommerce website
 class ecommerce:
     discount=(30/100)
     def profile(self,**kwargs):
@@ -8,31 +7,34 @@ class ecommerce:
         kwargs["state"]=input("enter the state:")
         kwargs["city"]=input("enter the city or colony name:")
         return kwargs
-
+   
     
     def cart(self, *args):
-        print(f"Items: {args}")
+        for i in args:
+            print(f"product name: {i}")
         return args
+
+    def calculate_total(self, *prices):
+        return sum(prices)
 
     def discount_rate(self):
         return self.discount
+    
     def coupen(self,coupen_dis):
-        global discount
         self.discount+=coupen_dis
         return self.discount
+    
     def tax(self):
         def inner(x):
             return self.discount*x
         return inner
-
-
 
 ob=ecommerce()
 ob.profile()
 n=int(input("enter the no of items:"))
 l=[input(f"enter {i+1} item: ") for i in range(n)]
 ob.cart(*l)
-#--------AI Test Cases---------
+
 print("=" * 50)
 print("TEST 1: discount_rate() - read class attribute")
 print("=" * 50)
@@ -61,16 +63,29 @@ print(f"✓ Test 3 passed: tax on 1000 = {result}")
 print()
 
 print("=" * 50)
-print("TEST 4: Multiple items in cart")
+print("TEST 4: calculate_total() - bulk price calculator with *args")
 print("=" * 50)
-result = ob.cart("item1", "item2", "item3")
-assert len(result) == 3
-print("✓ Test 4 passed: cart() works with multiple items")
+result = ob.calculate_total(100, 200, 300, 150)
+assert result == 750
+print(f"✓ Test 4 passed: calculate_total = {result}")
 print()
 
 print("=" * 50)
-print(" ALL TESTS PASSED!")
+print("TEST 5: calculate_total() - edge case (0 arguments)")
 print("=" * 50)
-    
-    
+result = ob.calculate_total()
+assert result == 0
+print(f"✓ Test 5 passed: calculate_total with 0 arguments = {result}")
+print()
 
+print("=" * 50)
+print("TEST 6: calculate_total() - single price")
+print("=" * 50)
+result = ob.calculate_total(500)
+assert result == 500
+print(f"✓ Test 6 passed: calculate_total with single price = {result}")
+print()
+
+print("=" * 50)
+print("ALL TESTS PASSED!")
+print("=" * 50)
