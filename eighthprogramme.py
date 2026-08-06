@@ -28,7 +28,26 @@ class ecommerce:
         def inner(x):
             return self.discount*x
         return inner
+    
+    def update_info(self, **info):
+        print(info)
+        print("please check the info you entered if you want edit please enter 1")
+        op=int(input())
+        if op==1:
+            name=input("enter the name of product:")
+            if_want=bool(input("if want enter the True if dont want enter False: "))
+            product={name:if_want}
+            info.update(product)
+            print(info)
+            return info
+        else:
+            return "you exited........"
 
+
+
+
+
+#---------------AI Test Blocks------------------
 ob=ecommerce()
 ob.profile()
 n=int(input("enter the no of items:"))
